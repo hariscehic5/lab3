@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+      function get_students() {
+        $.get("api/users", function (data) {
+          console.log(data);
+          //call api/users from index.php to get data
+          var html = "";
+          for (var i = 0; i < data.length; i++) {
+            html += "<tr> <td>" + data[i].firstName + "</td>";
+            html += "<td>" + data[i].lastName + "</td>";
+            html += "<td>" + data[i].age + "</td>";
+            html +=
+              '<td><button type="button" class="btn btn-danger" onclick="delete_student(' +
+              data[i].id +
+              ');">Delete</button></td> </tr>';
+          }
+          $("#table_content").html(html);
+        });
+      }
+
+      get_students();
+    </script>
+  </head>
+  <body>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Age</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody id="table_content"></tbody>
+    </table>
+  </body>
+</html>
